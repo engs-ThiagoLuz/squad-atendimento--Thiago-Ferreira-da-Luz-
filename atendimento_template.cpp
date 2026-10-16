@@ -189,7 +189,7 @@ void imprimirHistorico(PilhaHistorico& hist) {
 
 int main() {
 
-        // TESTE TEMPORÁRIO DO R2: apagar depois
+        // Teste temporário para o R2
     PilhaHistorico teste;
     teste.push("A");
     teste.push("B");
