@@ -133,26 +133,40 @@ struct PilhaHistorico {
 struct ListaMedicos {
     No* head = nullptr;
 
-    // TODO 7: Implemente adicionarMedico(nome)
-    //         Adiciona um médico no final da lista
+    // TODO 7
     void adicionarMedico(const string& nome) {
-        // Dica: percorra até o último nó e insira no final
-        // ...
+        No* novo = new No(nome);
+        if (head == nullptr) {
+            head = novo;
+            return;
+        }
+        No* p = head;
+        while (p->prox != nullptr) p = p->prox;
+        p->prox = novo;
     }
 
-    // TODO 8: Implemente chamarMedico()
-    //         Remove e retorna o primeiro médico disponível
+    // TODO 8
     string chamarMedico() {
-        // Dica: remova do início (como removerInicio da lista)
-        return "";  // substitua pelo retorno correto
+        if (head == nullptr) return "";
+        No* temp    = head;
+        string nome = temp->nome;
+        head        = head->prox;
+        delete temp;
+        return nome;
     }
 
-    // TODO 9: Implemente percorrer()
-    //         Imprime todos os médicos disponíveis
+    // TODO 9
     void percorrer(const string& prefixo = "") const {
         if (!prefixo.empty()) cout << prefixo << ": ";
-        // Dica: percorra com No* p = head; while(p) { ... p = p->prox; }
-        cout << "(lista vazia)\n";
+        if (head == nullptr) {
+            cout << "(lista vazia)\n";
+            return;
+        }
+        for (No* p = head; p != nullptr; p = p->prox) {
+            cout << p->nome;
+            if (p->prox != nullptr) cout << " => ";
+        }
+        cout << "\n";
     }
 
     bool temMedico() const { return head != nullptr; }
@@ -188,21 +202,6 @@ void imprimirHistorico(PilhaHistorico& hist) {
 // ════════════════════════════════════════════════════════════════
 
 int main() {
-
-        // Teste temporário para o R2
-    PilhaHistorico teste;
-    teste.push("A");
-    teste.push("B");
-    teste.push("C");
-    cout << "peek: " << teste.peek() << "\n";   // C
-    cout << "pop: "  << teste.pop()  << "\n";   // C
-    cout << "pop: "  << teste.pop()  << "\n";   // B
-    cout << "peek: " << teste.peek() << "\n";   // A
-    cout << "------------------------------------------------------\n";
-    cout << "  Sistema de Atendimento: Squad Thiago Ferreira da Luz\n";
-    cout << "------------------------------------------------------\n";
-
-
     // Crie as estruturas
     FilaPacientes  fila;
     PilhaHistorico historico;
@@ -235,11 +234,10 @@ int main() {
              << " atende " << paciente << "\n";
 
         // Registra no histórico (R2)
-        historico.push(medico + " → " + paciente);
+        historico.push(medico + " => " + paciente);
 
-        // Médico volta para a fila depois de atender
-        // (descomente após implementar adicionarMedico)
-        // medicos.adicionarMedico(medico);
+        // Médico volta para a fila depois de atender (R3)
+        medicos.adicionarMedico(medico);
     }
 
     // ── Último atendimento (peek na pilha) ────────────────────
@@ -266,9 +264,9 @@ int main() {
 // [ X ] TODO 4 — push empilha no histórico
 // [ X ] TODO 5 — pop desempilha e libera memória
 // [ X ] TODO 6 — peek retorna o topo sem remover
-// [ ] TODO 7 — adicionarMedico insere no final da lista
-// [ ] TODO 8 — chamarMedico remove do início e retorna o nome
-// [ ] TODO 9 — percorrer imprime todos os médicos com setas
+// [ X ] TODO 7 — adicionarMedico insere no final da lista
+// [ X ] TODO 8 — chamarMedico remove do início e retorna o nome
+// [ X ] TODO 9 — percorrer imprime todos os médicos com setas
 // [ ] TODO 10 — imprimirHistorico imprime sem destruir os dados
 // [ ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
 // [ ] Sem vazamentos de memória (todo new tem delete correspondente)
