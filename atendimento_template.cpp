@@ -276,4 +276,4 @@ int main() {
 // [ X ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
 // [ X ] Sem vazamentos de memória (todo new tem delete correspondente)
 // [ X ] Repositório no GitHub com histórico de commits organizado
-// [ ] README.md com instrução de compilação e exemplo de saída
+// [ X ] README.md com instrução de compilação e exemplo de saída
