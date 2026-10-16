@@ -184,17 +184,28 @@ struct ListaMedicos {
 // R4 · RELATÓRIO E HISTÓRICO COMPLETO
 // ════════════════════════════════════════════════════════════════
 
-// TODO 10: Implemente a função imprimirHistorico(PilhaHistorico&)
-//          Imprime todos os atendimentos do histórico na ordem (do topo à base)
-//          ATENÇÃO: não destrua o histórico ao imprimir!
-//          Dica: use uma pilha auxiliar para preservar os dados
+// TODO 10:
 void imprimirHistorico(PilhaHistorico& hist) {
     cout << "\n=== Relatorio de Atendimentos ===\n";
     if (hist.isEmpty()) {
         cout << "(nenhum atendimento registrado)\n";
         return;
     }
-    // ...
+
+    PilhaHistorico aux;
+    int n = 1;
+
+    // Fase 1: imprime do topo à base, movendo para a auxiliar
+    while (!hist.isEmpty()) {
+        string item = hist.pop();
+        cout << "  " << n++ << ". " << item << "\n";
+        aux.push(item);
+    }
+
+    // Fase 2: restaura o histórico original
+    while (!aux.isEmpty()) {
+        hist.push(aux.pop());
+    }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -246,12 +257,6 @@ int main() {
     // ── Relatório final (R4) ──────────────────────────────────
     imprimirHistorico(historico);
 
-    // ── Commit sugerido ──────────────────────────────────────
-    cout << "\n Lembrete de commits:\n";
-    cout << "  git add atendimento_template.cpp README.md\n";
-    cout << "  git commit -m \"feat: sistema de atendimento integrado (R1-R4)\"\n";
-    cout << "  git push origin main\n";
-
     return 0;
 }
 
@@ -267,8 +272,8 @@ int main() {
 // [ X ] TODO 7 — adicionarMedico insere no final da lista
 // [ X ] TODO 8 — chamarMedico remove do início e retorna o nome
 // [ X ] TODO 9 — percorrer imprime todos os médicos com setas
-// [ ] TODO 10 — imprimirHistorico imprime sem destruir os dados
-// [ ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
-// [ ] Sem vazamentos de memória (todo new tem delete correspondente)
-// [ ] Repositório no GitHub com histórico de commits organizado
+// [ X ] TODO 10 — imprimirHistorico imprime sem destruir os dados
+// [ X ] Programa compila sem warnings: g++ -std=c++17 -Wall -o sis main.cpp
+// [ X ] Sem vazamentos de memória (todo new tem delete correspondente)
+// [ X ] Repositório no GitHub com histórico de commits organizado
 // [ ] README.md com instrução de compilação e exemplo de saída
