@@ -94,22 +94,27 @@ struct FilaPacientes {
 struct PilhaHistorico {
     No* topo = nullptr;
 
-    // TODO 4: Implemente push(nome)
-    //         Empilha um atendimento concluído
+    // TODO 4
     void push(const string& nome) {
-        // ...
+        No* novo   = new No(nome);
+        novo->prox = topo;
+        topo       = novo;
     }
 
-    // TODO 5: Implemente pop()
-    //         Desempilha e retorna o último atendimento
+    // TODO 5
     string pop() {
-        return "";  // substitua pelo retorno correto
+        if (isEmpty()) return "";
+        No* temp    = topo;
+        string nome = temp->nome;
+        topo        = topo->prox;
+        delete temp;
+        return nome;
     }
 
-    // TODO 6: Implemente peek()
-    //         Retorna o último atendimento SEM remover
+    // TODO 6
     string peek() const {
-        return "";  // substitua pelo retorno correto
+        if (isEmpty()) return "";
+        return topo->nome;
     }
 
     bool isEmpty() const { return topo == nullptr; }
@@ -183,9 +188,20 @@ void imprimirHistorico(PilhaHistorico& hist) {
 // ════════════════════════════════════════════════════════════════
 
 int main() {
+
+        // TESTE TEMPORÁRIO DO R2: apagar depois
+    PilhaHistorico teste;
+    teste.push("A");
+    teste.push("B");
+    teste.push("C");
+    cout << "peek: " << teste.peek() << "\n";   // C
+    cout << "pop: "  << teste.pop()  << "\n";   // C
+    cout << "pop: "  << teste.pop()  << "\n";   // B
+    cout << "peek: " << teste.peek() << "\n";   // A
     cout << "------------------------------------------------------\n";
     cout << "  Sistema de Atendimento: Squad Thiago Ferreira da Luz\n";
     cout << "------------------------------------------------------\n";
+
 
     // Crie as estruturas
     FilaPacientes  fila;
@@ -247,9 +263,9 @@ int main() {
 // [ X ] TODO 1 — enqueue funciona (paciente entra na fila)
 // [ X ] TODO 2 — dequeue funciona (paciente sai da fila, memória liberada)
 // [ X ] TODO 3 — frente_peek retorna o nome sem remover
-// [ ] TODO 4 — push empilha no histórico
-// [ ] TODO 5 — pop desempilha e libera memória
-// [ ] TODO 6 — peek retorna o topo sem remover
+// [ X ] TODO 4 — push empilha no histórico
+// [ X ] TODO 5 — pop desempilha e libera memória
+// [ X ] TODO 6 — peek retorna o topo sem remover
 // [ ] TODO 7 — adicionarMedico insere no final da lista
 // [ ] TODO 8 — chamarMedico remove do início e retorna o nome
 // [ ] TODO 9 — percorrer imprime todos os médicos com setas
